@@ -28,7 +28,7 @@ const Navbar = () => {
                         </> :
                         <>
                             <ConnectWallet
-                                theme={colorMode}
+                                theme={"dark"}
                                 btnTitle="Connect Wallet"
                             />
                         </>
