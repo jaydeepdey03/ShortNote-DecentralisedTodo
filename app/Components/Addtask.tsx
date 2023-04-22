@@ -1,11 +1,15 @@
 import { Button, HStack, Input } from "@chakra-ui/react"
 import { FormEvent, useState } from "react"
 
-const Addtask = () => {
+interface AddtaskProps {
+    addTask: (task: any) => void;
+}
+
+const Addtask = (props: AddtaskProps) => {
     const [statusInput, setStatusInput] = useState(true);
     const [content, setContent] = useState('');
 
-    function handleSubmit(e: FormEvent<HTMLFormElement>){
+    function handleSubmit(e: FormEvent<HTMLFormElement>) {
         e.preventDefault()
     }
 
@@ -21,12 +25,12 @@ const Addtask = () => {
                     onChange={(e) => setContent(e.target.value)}
                 />
                 <Button
-                colorScheme='blue'
-                px='8'
-                pl='10'
-                pr='10'
-                h='46' 
-                type='submit'>Add Notes</Button>
+                    colorScheme='blue'
+                    px='8'
+                    pl='10'
+                    pr='10'
+                    h='46'
+                    type='submit'>Add Notes</Button>
             </HStack>
         </form>
     )

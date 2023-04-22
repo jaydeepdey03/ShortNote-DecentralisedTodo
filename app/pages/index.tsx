@@ -5,6 +5,8 @@ import { toast, ToastContainer } from 'react-toastify';
 import "react-toastify/dist/ReactToastify.css";
 import { useEffect, useState } from "react";
 import { FaFacebook, FaGithub, FaInstagram, FaLinkedin, FaTwitter } from "react-icons/fa";
+import Addtask from "../Components/Addtask";
+import Showtask from "../Components/Showtask";
 const Home: NextPage = () => {
 
   const [tasks, setTasks] = useState([]);
@@ -60,6 +62,10 @@ const Home: NextPage = () => {
         >
           TaskChain
         </Heading>
+        <Addtask addTask={addTask} />
+        
+        <Showtask tasks={tasks} updateTask={updateTask} deleteTask={deleteTask} deleteTaskAll={deleteTaskAll} checkCompletedTask={checkCompletedTask}/>
+
         <Flex position='absolute' bottom='5'>
           <Link href='https://github.com/raminhuk' target='_blank' >
             <IconButton
