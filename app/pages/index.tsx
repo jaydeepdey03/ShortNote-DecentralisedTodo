@@ -51,23 +51,13 @@ const Home: NextPage = () => {
       />
 
       <Navbar />
-      <VStack p={4} minH='100vh' pb={28}>
-
-        <Heading
-          p='5'
-          fontWeight='extrabold'
-          size='xl'
-          bgGradient='linear(to-l, teal.300, blue.500)'
-          bgClip='text'
-        >
-          TaskChain
-        </Heading>
+      <VStack p={4} pb={28}>
         <Addtask addTask={addTask} />
         
         <Showtask tasks={tasks} updateTask={updateTask} deleteTask={deleteTask} deleteTaskAll={deleteTaskAll} checkCompletedTask={checkCompletedTask}/>
 
         <Flex position='absolute' bottom='5'>
-          <Link href='https://github.com/raminhuk' target='_blank' >
+          <Link href='https://github.com/jaydeepdey03' target='_blank' >
             <IconButton
               aria-label="Github"
               icon={<FaGithub />}
@@ -76,7 +66,7 @@ const Home: NextPage = () => {
               m='1'
             />
           </Link>
-          <Link href='https://www.linkedin.com/in/fabio-junior-raminhuk-740669121/' target='_blank'>
+          <Link href='https://www.linkedin.com/in/jaydeep-dey03/' target='_blank'>
             <IconButton
               aria-label="Linkedin"
               icon={<FaLinkedin />}
@@ -85,7 +75,7 @@ const Home: NextPage = () => {
               m='1'
             />
           </Link>
-          <Link href='https://www.instagram.com/fabiormk/' target='_blank'>
+          <Link href='https://instagram.com/jaydeep_dey03' target='_blank'>
             <IconButton
               aria-label="Instagram"
               icon={<FaInstagram />}
@@ -94,19 +84,10 @@ const Home: NextPage = () => {
               m='1'
             />
           </Link>
-          <Link href='https://twitter.com/fabio_rmk' target='_blank'>
+          <Link href='https://twitter.com/jaydeep_dey03' target='_blank'>
             <IconButton
               aria-label="Twitter"
               icon={<FaTwitter />}
-              rounded={"full"}
-              size='md'
-              m='1'
-            />
-          </Link>
-          <Link href='https://www.facebook.com/fabio.raminhuk' target='_blank'>
-            <IconButton
-              aria-label="Facebook"
-              icon={<FaFacebook />}
               rounded={"full"}
               size='md'
               m='1'
