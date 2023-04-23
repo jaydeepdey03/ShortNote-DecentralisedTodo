@@ -50,7 +50,6 @@ const Home: NextPage = () => {
         theme="light"
       />
       <Box minH="100vh">
-
         <Navbar />
         <VStack p={4} pb={28}>
           <Addtask addTask={addTask} />

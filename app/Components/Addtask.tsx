@@ -1,4 +1,4 @@
-import { Button, HStack, Input } from "@chakra-ui/react"
+import { Button, HStack, Input, Textarea, VStack } from "@chakra-ui/react"
 import { FormEvent, useState } from "react"
 
 interface AddtaskProps {
@@ -15,9 +15,10 @@ const Addtask = (props: AddtaskProps) => {
 
     return (
         <form onSubmit={handleSubmit}>
-            <HStack mt='4' mb='4'>
-                <Input
-                    h='46'
+            <VStack mt='4' mb='4'>
+                <Textarea
+                    h='20'
+                    w="96"
                     borderColor={!statusInput ? 'red.300' : 'transparent'}
                     variant='filled'
                     placeholder='Enter your task here...'
@@ -25,13 +26,12 @@ const Addtask = (props: AddtaskProps) => {
                     onChange={(e) => setContent(e.target.value)}
                 />
                 <Button
-                    colorScheme='blue'
+                    colorScheme='telegram'
                     px='8'
-                    pl='10'
-                    pr='10'
-                    h='46'
+                    w="full"
+                    h='10'
                     type='submit'>Add Notes</Button>
-            </HStack>
+            </VStack>
         </form>
     )
 }
