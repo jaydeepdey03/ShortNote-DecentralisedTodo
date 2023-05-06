@@ -16,7 +16,7 @@ import { useState, useRef } from 'react';
 import { FiTrash2, FiEdit } from 'react-icons/fi'
 
 interface UpdateTaskProps {
-    task: any[];
+    task: any;
     updateTask: (id: string, updatedTask: any) => void;
 }
 

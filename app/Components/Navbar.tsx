@@ -1,14 +1,12 @@
-import { Box, Button, Flex, HStack, Heading, Image, Text, useColorMode } from "@chakra-ui/react"
+import { Avatar, Box, Button, Flex, HStack, Heading, Image, Menu, MenuButton, MenuItem, MenuList, Text, useColorMode } from "@chakra-ui/react"
 import ToggleTheme from "./ToggleTheme"
-import { ConnectWallet, Web3Button, useMetamask, useSwitchChain, useNetworkMismatch, useConnectedWallet, useWalletConnect, useAddress } from "@thirdweb-dev/react"
-import { Mumbai } from "@thirdweb-dev/chains";
+import { ConnectWallet, Web3Button, useMetamask, useSwitchChain, useNetworkMismatch, useConnectedWallet, useWalletConnect, useAddress, useDisconnect } from "@thirdweb-dev/react"
+import { useState } from "react"
+
 
 const Navbar = () => {
-    const { colorMode } = useColorMode()
-    const isMismatched = useNetworkMismatch()
-    const switchChain = useSwitchChain()
-    const connect = useMetamask()
-    const address = useAddress()
+    const disconnect = useDisconnect()
+    const [isOpen, setIsOpen] = useState(false)
     return (
         <Flex justifyContent={"space-between"} height={"20"} padding={"3"}>
             <Text
@@ -18,27 +16,15 @@ const Navbar = () => {
                 bgGradient='linear(to-l, teal.300, blue.500)'
                 bgClip='text'
             >
-                TaskChain
+                ShortNote
             </Text>
             <HStack spacing={"5"} margin={"3"}>
-                {/* <ConnectWallet theme={colorMode} btnTitle="Connect Wallet" /> */}
-                {
-                    isMismatched ?
-                        <>
-                            <Button leftIcon={<Image src={"/polygon.png"} width={5} height={5} alt="" />} colorScheme="purple" onClick={() => switchChain(Mumbai.chainId)}>Switch to Mumbai</Button>
-                        </> :
-                        <>
-                            {address ?
-                                <ConnectWallet
-                                    theme={colorMode}
-                                    btnTitle="Connect Wallet"
-                                />
-                                : <ConnectWallet
-                                    theme={colorMode === "dark" ? "light" : "dark"}
-                                    btnTitle="Connect Wallet"
-                                />}
-                        </>
-                }
+                <Menu>
+                    <MenuButton as={Avatar} size="sm" cursor={"pointer"} onClick={() => setIsOpen(!isOpen)} />
+                    <MenuList>
+                        <MenuItem onClick={disconnect}>Disconnect Wallet</MenuItem>
+                    </MenuList>
+                </Menu>
 
                 <ToggleTheme />
             </HStack>

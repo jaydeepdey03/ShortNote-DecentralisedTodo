@@ -14,24 +14,24 @@ const Addtask = (props: AddtaskProps) => {
     }
 
     return (
-        <form onSubmit={handleSubmit}>
-            <VStack mt='4' mb='4'>
-                <Textarea
-                    h='20'
-                    w="96"
+        <form onSubmit={handleSubmit} >
+            <HStack mt='4' mb='4'>
+                <Input
+                    h='46'
                     borderColor={!statusInput ? 'red.300' : 'transparent'}
                     variant='filled'
-                    placeholder='Enter your task here...'
+                    placeholder='Add a new task....'
                     value={content}
                     onChange={(e) => setContent(e.target.value)}
                 />
                 <Button
-                    colorScheme='telegram'
-                    px='8'
-                    w="full"
-                    h='10'
-                    type='submit'>Add Notes</Button>
-            </VStack>
+                colorScheme='blue'
+                px='8'
+                pl='10'
+                pr='10'
+                h='46' 
+                type='submit'>Add Notes</Button>
+            </HStack>
         </form>
     )
 }

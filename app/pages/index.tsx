@@ -1,16 +1,26 @@
 import type { NextPage } from "next";
 import Navbar from "../Components/Navbar";
-import { Box, Flex, Heading, IconButton, Link, Textarea, VStack, useColorMode } from "@chakra-ui/react";
+import { Box, Button, Flex, Heading, IconButton, Image, Link, Textarea, VStack, useColorMode } from "@chakra-ui/react";
 import { toast, ToastContainer } from 'react-toastify';
 import "react-toastify/dist/ReactToastify.css";
 import { useEffect, useState } from "react";
 import { FaFacebook, FaGithub, FaInstagram, FaLinkedin, FaTwitter } from "react-icons/fa";
 import Addtask from "../Components/Addtask";
 import Showtask from "../Components/Showtask";
-const Home: NextPage = () => {
+import { ConnectWallet, useAddress, useMetamask, useNetworkMismatch, useSwitchChain } from "@thirdweb-dev/react";
+import { Mumbai } from "@thirdweb-dev/chains";
+import ToggleTheme from "../Components/ToggleTheme";
+
+
+const Home = () => {
 
   const [tasks, setTasks] = useState([]);
-  const { colorMode, toggleColorMode } = useColorMode();
+  const { colorMode } = useColorMode()
+  const isMismatched = useNetworkMismatch()
+  const switchChain = useSwitchChain()
+  const connect = useMetamask()
+  const address = useAddress()
+
   useEffect(() => {
     // fetch
   }, [tasks]);
@@ -35,6 +45,36 @@ const Home: NextPage = () => {
     // add task
   }
 
+  if (isMismatched) {
+    return (
+      <Box minH="100vh">
+        <Box position={"absolute"} right={10} top={10}>
+          <ToggleTheme />
+        </Box>
+        <Box display={"flex"} justifyContent={"center"} alignItems={"center"} minH="100vh">
+          <Button leftIcon={<Image src={"/polygon.png"} width={5} height={5} alt="" />} colorScheme={"twitter"} onClick={() => switchChain(Mumbai.chainId)}>Switch to Mumbai</Button>
+        </Box>
+      </Box>
+
+    )
+  }
+
+  if (!address) {
+    return (
+      <Box minH={"100vh"}>
+        <Box position={"absolute"} right={10} top={10}>
+          <ToggleTheme />
+        </Box>
+        <Box display={"flex"} justifyContent={"center"} alignItems={"center"} minH="100vh">
+          <ConnectWallet
+            theme={colorMode}
+            btnTitle="Connect Wallet"
+          />
+        </Box>
+      </Box>
+
+    )
+  }
   return (
     <>
       <ToastContainer
@@ -49,6 +89,7 @@ const Home: NextPage = () => {
         pauseOnHover
         theme="light"
       />
+
       <Box minH="100vh">
         <Navbar />
         <VStack p={4} pb={28}>
