@@ -45,16 +45,22 @@ const Home: NextPage = () => {
             <Text maxW={{ "base": "md", "md": "lg", "lg": 'xl' }} fontWeight={"semibold"} fontSize={{ "base": "md", "md": "lg", "lg": 'xl' }} color="gray.100">
               Create, store, and access your notes securely with our decentralized short note taking application using blockchain technology.
             </Text>
-            {address === null ?
+            {address ?
 
               (isMismatched ?
-                <Button leftIcon={<Image src={"/polygon.png"} width={5} height={5} alt="" />} colorScheme={"twitter"} onClick={() => switchChain(Mumbai.chainId)}>Switch to Mumbai</Button>
+                <Button style={{ marginTop: '21px' }} leftIcon={<Image src={"/polygon.png"} width={5} height={5} alt="" />} colorScheme={"twitter"} onClick={() => switchChain(Mumbai.chainId)}>Switch to Mumbai</Button>
                 :
                 <Link href="/home"><Button rightIcon={<ArrowForwardIcon />} _hover={{ bg: 'black' }} style={{ marginTop: '21px' }} bg="blackAlpha.700" color={"white"}>Get Started</Button></Link>)
 
               :
-              <Button rightIcon={<ArrowForwardIcon />} _hover={{ bg: 'black' }} onClick={()=>connect({chainId: Mumbai.chainId})} style={{ marginTop: '21px' }} bg="blackAlpha.700" color={"white"}>Connect Wallet</Button>
+              // <Button rightIcon={<ArrowForwardIcon />} _hover={{ bg: 'black' }} onClick={()=>connect({chainId: Mumbai.chainId})} style={{ marginTop: '21px' }} bg="blackAlpha.700" color={"white"}>Connect Wallet</Button>
 
+              <Box style={{ marginTop: '21px' }}>
+                <ConnectWallet
+                  theme={"light"}
+                  btnTitle="Connect Wallet"
+                />
+              </Box>
             }
           </VStack>
           <Footer />
