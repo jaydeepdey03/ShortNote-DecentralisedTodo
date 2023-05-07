@@ -1,11 +1,8 @@
 import { Button, HStack, Input, Textarea, VStack } from "@chakra-ui/react"
 import { FormEvent, useState } from "react"
 
-interface AddtaskProps {
-    addTask: (task: any) => void;
-}
 
-const Addtask = (props: AddtaskProps) => {
+const Addtask = (props: any) => {
     const [statusInput, setStatusInput] = useState(true);
     const [content, setContent] = useState('');
 

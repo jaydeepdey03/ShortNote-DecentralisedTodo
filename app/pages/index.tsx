@@ -1,84 +1,26 @@
 import type { NextPage } from "next";
-import Navbar from "../Components/Navbar";
-import { Box, Button, Flex, Heading, IconButton, Image, Link, Textarea, VStack, useColorMode } from "@chakra-ui/react";
+import { Box, Button, Flex, HStack, Heading, IconButton, Image, Link, Text, Textarea, VStack, useColorMode } from "@chakra-ui/react";
 import { toast, ToastContainer } from 'react-toastify';
 import "react-toastify/dist/ReactToastify.css";
-import { useEffect, useState } from "react";
-import { FaFacebook, FaGithub, FaInstagram, FaLinkedin, FaTwitter } from "react-icons/fa";
-import Addtask from "../Components/Addtask";
-import Showtask from "../Components/Showtask";
+import { FaGithub } from "react-icons/fa";
+import Footer from "../Components/Footer";
+import { ArrowForwardIcon } from "@chakra-ui/icons";
 import { ConnectWallet, useAddress, useMetamask, useNetworkMismatch, useSwitchChain } from "@thirdweb-dev/react";
 import { Mumbai } from "@thirdweb-dev/chains";
-import ToggleTheme from "../Components/ToggleTheme";
 
+const Home: NextPage = () => {
+  // import all the functions from global state
 
-const Home = () => {
-
-  const [tasks, setTasks] = useState([]);
-  const { colorMode } = useColorMode()
+  // const [tasks, setTasks] = useState([]);
+  const address = useAddress()
   const isMismatched = useNetworkMismatch()
   const switchChain = useSwitchChain()
   const connect = useMetamask()
-  const address = useAddress()
 
-  useEffect(() => {
-    // fetch
-  }, [tasks]);
-
-  function deleteTask(id: string) {
-    // delete function
-  }
-
-  function deleteTaskAll() {
-    setTasks([]);
-  }
-
-  function checkCompletedTask(id: string) {
-    // filter completed task
-  }
-
-  function updateTask(id: string, body: string) {
-    // update task
-  }
-
-  function addTask(task: any) {
-    // add task
-  }
-
-  if (isMismatched) {
-    return (
-      <Box minH="100vh">
-        <Box position={"absolute"} right={10} top={10}>
-          <ToggleTheme />
-        </Box>
-        <Box display={"flex"} justifyContent={"center"} alignItems={"center"} minH="100vh">
-          <Button leftIcon={<Image src={"/polygon.png"} width={5} height={5} alt="" />} colorScheme={"twitter"} onClick={() => switchChain(Mumbai.chainId)}>Switch to Mumbai</Button>
-        </Box>
-      </Box>
-
-    )
-  }
-
-  if (!address) {
-    return (
-      <Box minH={"100vh"}>
-        <Box position={"absolute"} right={10} top={10}>
-          <ToggleTheme />
-        </Box>
-        <Box display={"flex"} justifyContent={"center"} alignItems={"center"} minH="100vh">
-          <ConnectWallet
-            theme={colorMode}
-            btnTitle="Connect Wallet"
-          />
-        </Box>
-      </Box>
-
-    )
-  }
   return (
     <>
       <ToastContainer
-        position="top-right"
+        position="bottom-center"
         autoClose={5000}
         hideProgressBar={false}
         newestOnTop={false}
@@ -89,52 +31,33 @@ const Home = () => {
         pauseOnHover
         theme="light"
       />
+      <Box className="main-bg">
+        <VStack p="3">
+          {/* Navbar */}
+          <Box height={"10vh"} display={"flex"} justifyContent={"space-between"} p="3" pl="6" width={"100vw"}>
+            <Text fontSize={"2xl"} fontWeight={"bold"}><span className="app-grad">Scribbly</span></Text>
+            <HStack>
+              <Button colorScheme="blackAlpha" leftIcon={<FaGithub />}>Github Repo</Button>
+            </HStack>
+          </Box>
+          <VStack height={"70vh"} display={"flex"} justifyContent={"center"} flexDirection={"column"} alignItems={"center"} textAlign={"center"}>
+            <Text fontSize={{ "base": "4xl", "md": "4xl", "lg": "5xl" }} color={"white"} fontWeight={"bold"}>Introducing fully decentralized <br /><span className="text-gradient">Short Note</span> Platform</Text>
+            <Text maxW={{ "base": "md", "md": "lg", "lg": 'xl' }} fontWeight={"semibold"} fontSize={{ "base": "md", "md": "lg", "lg": 'xl' }} color="gray.100">
+              Create, store, and access your notes securely with our decentralized short note taking application using blockchain technology.
+            </Text>
+            {address === null ?
 
-      <Box minH="100vh">
-        <Navbar />
-        <VStack p={4} pb={28}>
-          <Addtask addTask={addTask} />
+              (isMismatched ?
+                <Button leftIcon={<Image src={"/polygon.png"} width={5} height={5} alt="" />} colorScheme={"twitter"} onClick={() => switchChain(Mumbai.chainId)}>Switch to Mumbai</Button>
+                :
+                <Link href="/home"><Button rightIcon={<ArrowForwardIcon />} _hover={{ bg: 'black' }} style={{ marginTop: '21px' }} bg="blackAlpha.700" color={"white"}>Get Started</Button></Link>)
 
-          <Showtask tasks={tasks} updateTask={updateTask} deleteTask={deleteTask} deleteTaskAll={deleteTaskAll} checkCompletedTask={checkCompletedTask} />
+              :
+              <Button rightIcon={<ArrowForwardIcon />} _hover={{ bg: 'black' }} onClick={()=>connect({chainId: Mumbai.chainId})} style={{ marginTop: '21px' }} bg="blackAlpha.700" color={"white"}>Connect Wallet</Button>
 
-          <Flex position='absolute' bottom='5'>
-            <Link href='https://github.com/jaydeepdey03' target='_blank' >
-              <IconButton
-                aria-label="Github"
-                icon={<FaGithub />}
-                rounded={"full"}
-                size='md'
-                m='1'
-              />
-            </Link>
-            <Link href='https://www.linkedin.com/in/jaydeep-dey03/' target='_blank'>
-              <IconButton
-                aria-label="Linkedin"
-                icon={<FaLinkedin />}
-                rounded={"full"}
-                size='md'
-                m='1'
-              />
-            </Link>
-            <Link href='https://instagram.com/jaydeep_dey03' target='_blank'>
-              <IconButton
-                aria-label="Instagram"
-                icon={<FaInstagram />}
-                rounded={"full"}
-                size='md'
-                m='1'
-              />
-            </Link>
-            <Link href='https://twitter.com/jaydeep_dey03' target='_blank'>
-              <IconButton
-                aria-label="Twitter"
-                icon={<FaTwitter />}
-                rounded={"full"}
-                size='md'
-                m='1'
-              />
-            </Link>
-          </Flex>
+            }
+          </VStack>
+          <Footer />
         </VStack>
       </Box>
     </>

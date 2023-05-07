@@ -15,13 +15,8 @@ import {
 import { useState, useRef } from 'react';
 import { FiTrash2, FiEdit } from 'react-icons/fi'
 
-interface UpdateTaskProps {
-    task: any;
-    updateTask: (id: string, updatedTask: any) => void;
-}
 
-
-const UpdateTask = (props: UpdateTaskProps) => {
+const UpdateTask = (props: any) => {
     const { task, updateTask } = props;
     const { isOpen, onOpen, onClose } = useDisclosure()
     const [body, setBody] = useState('');

@@ -2,16 +2,9 @@ import { Box, HStack, Image, StackDivider, Tag, TagLabel, TagRightIcon, Text, VS
 import { tasks } from "../utils/data";
 import { DeleteTask } from "./DeleteTask";
 import UpdateTask from "./UpdateTask";
-interface ShowtaskProps {
-    tasks: any[];
-    updateTask: (id: string, updatedTask: any) => void;
-    deleteTask: (id: string) => void;
-    checkCompletedTask: (id: string) => void;
-    deleteTaskAll: () => void
-}
 
 
-const Showtask = (props: ShowtaskProps) => {
+const Showtask = (props: any) => {
     const { updateTask, deleteTask, checkCompletedTask, deleteTaskAll } = props;
     if (!tasks.length) {
         return (
