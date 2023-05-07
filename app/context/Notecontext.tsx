@@ -1,45 +1,39 @@
 import { createContext } from "react";
 import { ReactNode } from "react";
-import { useState } from "react";
-import { useContract, useContractRead } from "@thirdweb-dev/react";
+import { useState, useEffect } from "react";
+import { useContract, useContractRead, useContractWrite } from "@thirdweb-dev/react";
 export const NoteContext = createContext(
     {
         tasks: [],
         deleteTask: (id: string) => { },
-        getAllTask: (id: string) => { },
+        getAllTask: () => { },
         updateTask: (id: string, body: string) => { },
-        addTask: (task: any) => { }
+        addTask: (task: any) => { },
+        errorState: ""
     }
 );
 
-
-
 const NotecontextProvider = ({ children }: { children: ReactNode }) => {
 
-    const { contract, isLoading, error } = useContract("0x5c0F5269956db976bD0AA8393a592BEf3db74249")
+    const { contract } = useContract("0x5c0F5269956db976bD0AA8393a592BEf3db74249")
+    const { data: notes } = useContractRead(contract, "getNotes");
+    const { mutateAsync: addNote } = useContractWrite(contract, "addNote")
 
     const [tasks, setTasks] = useState([]);
     const [loading, setLoading] = useState(false);
-    const [errorState, setErrorState] = useState({})
+    const [errorState, setErrorState] = useState("")
 
-    if (error) {
-        setErrorState(error)
-    }
 
     function deleteTask(id: string) {
         // delete function
-
     }
 
-    async function getAllTask(id: string) {
-        // get all task
+    async function getAllTask() {
         try {
-            const { data, isLoading } = useContractRead(contract, "getNotes", []);
-            setTasks(data);
-            setLoading(false);
+            setTasks(notes)
         } catch (err: any) {
-            setErrorState(err);
-            setLoading(false);
+            setErrorState(err)
+            console.log(err)
         }
     }
 
@@ -47,12 +41,27 @@ const NotecontextProvider = ({ children }: { children: ReactNode }) => {
         // update task
     }
 
-    function addTask(task: any) {
+    async function addTask(noteString: string) {
         // add task
+        try {
+            setLoading(true)
+            const data = await addNote({ args: [noteString] });
+            console.log("Add Note success", data);
+            setLoading(false)
+        } catch (err: any) {
+            console.error("Add Note failure", err);
+            setErrorState(err)
+        }
     }
 
+
+    useEffect(() => {
+        getAllTask()
+        console.log(notes)
+    }, [notes])
+
     return (
-        <NoteContext.Provider value={{ tasks, deleteTask, getAllTask, updateTask, addTask }}>
+        <NoteContext.Provider value={{ tasks, deleteTask, getAllTask, updateTask, addTask, errorState }}>
             {children}
         </NoteContext.Provider>
     )

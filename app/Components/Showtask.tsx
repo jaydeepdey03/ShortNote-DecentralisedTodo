@@ -1,11 +1,21 @@
-import { Box, HStack, Image, StackDivider, Tag, TagLabel, TagRightIcon, Text, VStack } from "@chakra-ui/react";
-import { tasks } from "../utils/data";
+import { Box, HStack, Image, StackDivider, Text, VStack } from "@chakra-ui/react";
+// import { tasks } from "../utils/data";
 import { DeleteTask } from "./DeleteTask";
 import UpdateTask from "./UpdateTask";
 
+interface Note {
+    0: {
+        type: string;
+        hex: string;
+    };
+    1: string;
+    2: string;
+    3: boolean;
+}
+
 
 const Showtask = (props: any) => {
-    const { updateTask, deleteTask, checkCompletedTask, deleteTaskAll } = props;
+    const { updateTask, deleteTask, checkCompletedTask, tasks } = props;
     if (!tasks.length) {
         return (
             <>
@@ -19,34 +29,34 @@ const Showtask = (props: any) => {
     return (
         <>
             <VStack
-                divider={<StackDivider />}
+                divider={<StackDivider borderColor="gray.200" />}
                 boxShadow={"md"}
                 p='5'
                 borderRadius='lg'
+                border={"1px"}
+                borderColor={"gray.200"}
                 w='100%'
                 maxW={{ base: '90vw', sm: '80vw', lg: '50vw', xl: '30vw' }}
                 alignItems='stretch'
+                spacing={"3"}
             >
 
-                {tasks.map((task) => (
-                    <HStack
-                        key={task.id}
-                        opacity={task.isCompleted == true ? '0.2' : '1'}
-                    >
+                {tasks.map((noteArray: Note) => (
+                    <HStack key={noteArray[0].hex}>
                         <Text
                             w='100%'
                             p='8px'
                             borderRadius='lg'
-                            as={task.isCompleted ? 's' : undefined}
+                            as={noteArray[3] ? 's' : 'b'}
                             cursor='pointer'
-                        // onClick={() => checkTask(task.id)}
                         >
-                            {task.note}
+                            {noteArray[2].replace(/\\/g, '').replace(/"/g, '')}
                         </Text>
-                        <DeleteTask task={task} deleteTask={deleteTask} />
-                        <UpdateTask task={task} updateTask={updateTask} />
+                        <DeleteTask task={noteArray} deleteTask={deleteTask} />
+                        <UpdateTask task={noteArray} updateTask={updateTask} />
                     </HStack>
                 ))}
+
             </VStack>
         </>
     )
