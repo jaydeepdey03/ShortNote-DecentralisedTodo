@@ -2,6 +2,7 @@ import { Box, HStack, Image, StackDivider, Text, VStack } from "@chakra-ui/react
 // import { tasks } from "../utils/data";
 import { DeleteTask } from "./DeleteTask";
 import UpdateTask from "./UpdateTask";
+import useGlobalState from "../hook/useGlobalState";
 
 interface Note {
     0: {
@@ -15,8 +16,10 @@ interface Note {
 
 
 const Showtask = (props: any) => {
-    const { updateTask, deleteTask, checkCompletedTask, tasks } = props;
-    if (!tasks.length) {
+    const { updateTask, deleteTask } = props;
+
+    const { tasks } = useGlobalState()
+    if (!tasks || !tasks.length) {
         return (
             <>
                 <Box maxW='80%' display={"flex"} justifyContent={"center"} alignItems={"center"} flexDirection={"column"}>
