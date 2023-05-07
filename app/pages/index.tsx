@@ -1,5 +1,5 @@
 import type { NextPage } from "next";
-import { Box, Button, Flex, HStack, Heading, IconButton, Image, Link, Text, Textarea, VStack, useColorMode } from "@chakra-ui/react";
+import { Box, Button, Flex, HStack, Heading, Icon, IconButton, Image, Link, Text, Textarea, VStack, useColorMode } from "@chakra-ui/react";
 import { toast, ToastContainer } from 'react-toastify';
 import "react-toastify/dist/ReactToastify.css";
 import { FaGithub } from "react-icons/fa";
@@ -7,6 +7,7 @@ import Footer from "../Components/Footer";
 import { ArrowForwardIcon } from "@chakra-ui/icons";
 import { ConnectWallet, useAddress, useMetamask, useNetworkMismatch, useSwitchChain } from "@thirdweb-dev/react";
 import { Mumbai } from "@thirdweb-dev/chains";
+import ToggleTheme from "../Components/ToggleTheme";
 
 const Home: NextPage = () => {
   // import all the functions from global state
@@ -32,12 +33,19 @@ const Home: NextPage = () => {
         theme="light"
       />
       <Box className="main-bg">
+        {/* <ToggleTheme /> */}
         <VStack p="3">
           {/* Navbar */}
           <Box height={"10vh"} display={"flex"} justifyContent={"space-between"} p="3" pl="6" width={"100vw"}>
             <Text fontSize={"2xl"} fontWeight={"bold"}><span className="app-grad">Scribbly</span></Text>
             <HStack>
-              <Button colorScheme="blackAlpha" leftIcon={<FaGithub />}>Github Repo</Button>
+              <Link href="https://github.com/jaydeepdey03/scribbly" target="_blank">
+                <Box bg="black" display="inline-flex" alignItems="center" borderRadius="md" p={2} pr="3" pl="3">
+                  <Icon as={FaGithub} color="white" mr={2} />
+                  <Text color="white" fontWeight={"semibold"}>Github Repo</Text>
+                </Box>
+              </Link>
+              {/* <Button bg="black" leftIcon={<FaGithub />}>Github Repo</Button> */}
             </HStack>
           </Box>
           <VStack height={"70vh"} display={"flex"} justifyContent={"center"} flexDirection={"column"} alignItems={"center"} textAlign={"center"}>
@@ -48,14 +56,14 @@ const Home: NextPage = () => {
             {address ?
 
               (isMismatched ?
-                <Button style={{ marginTop: '21px' }} leftIcon={<Image src={"/polygon.png"} width={5} height={5} alt="" />} colorScheme={"twitter"} onClick={() => switchChain(Mumbai.chainId)}>Switch to Mumbai</Button>
+                <Button className="my-transition" style={{ marginTop: '21px' }} leftIcon={<Image src={"/polygon.png"} width={5} height={5} alt="" />} colorScheme={"twitter"} onClick={() => switchChain(Mumbai.chainId)}>Switch to Mumbai</Button>
                 :
-                <Link href="/home"><Button rightIcon={<ArrowForwardIcon />} _hover={{ bg: 'black' }} style={{ marginTop: '21px' }} bg="blackAlpha.700" color={"white"}>Get Started</Button></Link>)
+                <Link className="my-transition" href="/home"><Button rightIcon={<ArrowForwardIcon />} _hover={{ bg: 'black' }} style={{ marginTop: '21px' }} bg="blackAlpha.700" color={"white"}>Get Started</Button></Link>)
 
               :
               // <Button rightIcon={<ArrowForwardIcon />} _hover={{ bg: 'black' }} onClick={()=>connect({chainId: Mumbai.chainId})} style={{ marginTop: '21px' }} bg="blackAlpha.700" color={"white"}>Connect Wallet</Button>
 
-              <Box style={{ marginTop: '21px' }}>
+              <Box className="my-transition" style={{ marginTop: '21px' }}>
                 <ConnectWallet
                   theme={"light"}
                   btnTitle="Connect Wallet"

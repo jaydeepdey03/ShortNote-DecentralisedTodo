@@ -48,3 +48,7 @@ body {
     text-fill-color: transparent;
     /* color: white; */
 }
+
+.my-transition {
+    transition: all 0.3s ease;
+}
