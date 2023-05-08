@@ -60,7 +60,7 @@ const Home: NextPage = () => {
 
         </VStack>
         <Flex flexDirection={{ "base": "column", "lg": "row" }} mr="16" ml="16" justifyContent={{ "base": "center", "md": "space-around" }} alignItems={"center"} minH={"100vh"} >
-          <Text maxW="xl" textAlign={{ "base": "center", "lg": "left" }} fontSize={{ "base": "3xl", "md": "4xl" }} fontWeight={"semibold"}><span>A new way to take and store notes</span> built on the blockchain.</Text>
+          <Text maxW="xl" textAlign={{ "base": "center", "lg": "left" }} fontSize={{ "base": "3xl", "md": "4xl" }} fontWeight={"semibold"} color={"white"}><span>A new way to take and store notes</span> built on the blockchain.</Text>
           <Image m="10" src={"/takingnotes.svg"} width={"auto"} height={"xs"} alt="" />
 
         </Flex>
