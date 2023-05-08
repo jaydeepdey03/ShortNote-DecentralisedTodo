@@ -1,5 +1,5 @@
 import { CheckIcon, CloseIcon } from "@chakra-ui/icons"
-import { Button, IconButton, Spinner, Text, useToast } from "@chakra-ui/react"
+import { Button, IconButton, Spinner, Text, Tooltip, useToast } from "@chakra-ui/react"
 import useGlobalState from "../hook/useGlobalState";
 import { useState } from 'react'
 import { useAddress, useContract, useContractWrite } from "@thirdweb-dev/react";
@@ -40,15 +40,17 @@ const Markcompleted = (props: any) => {
             setToggleCompleteLoadingState(false)
         }
     }
-  
+
     return (
         <>
-            <IconButton
-                icon={toggleCompleteLoadingState ? <Spinner size="sm" /> : !completed ? <CheckIcon /> : <CloseIcon />}
-                aria-label='check'
-                rounded={"full"}
-                onClick={() => toggleCompleteFunction(id)}
-            />
+            <Tooltip label={completed ? "Mark as uncompleted" : "Mark as completed"} aria-label="A tooltip">
+                <IconButton
+                    icon={toggleCompleteLoadingState ? <Spinner size="sm" /> : !completed ? <CheckIcon /> : <CloseIcon />}
+                    aria-label='check'
+                    rounded={"full"}
+                    onClick={() => toggleCompleteFunction(id)}
+                />
+            </Tooltip>
         </>
     )
 }
