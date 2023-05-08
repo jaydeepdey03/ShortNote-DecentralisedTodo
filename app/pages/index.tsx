@@ -34,7 +34,7 @@ const Home: NextPage = () => {
       />
       <Box className="main-bg">
         {/* <ToggleTheme /> */}
-        <VStack p="3">
+        <VStack p="3" minH="full">
           {/* Navbar */}
           <Box height={"10vh"} display={"flex"} justifyContent={"space-between"} p="3" pl="6" width={"100vw"}>
             <Text fontSize={"2xl"} fontWeight={"bold"}><span className="app-grad">Scribbly</span></Text>
@@ -71,8 +71,16 @@ const Home: NextPage = () => {
               </Box>
             }
           </VStack>
-          <Footer />
+
         </VStack>
+        <Flex flexDirection={{ "base": "column", "lg": "row" }} mr="16" ml="16" justifyContent={{ "base": "center", "md": "space-around" }} alignItems={"center"} minH={"100vh"} >
+          <Text maxW="xl" textAlign={{ "base": "center", "lg": "left" }} fontSize={{ "base": "3xl", "md": "4xl" }} fontWeight={"semibold"}><span>A new way to take and store notes</span> built on the blockchain.</Text>
+          <Image m="10" src={"/takingnotes.svg"} width={"auto"} height={"xs"} alt="" />
+
+        </Flex>
+      </Box>
+      <Box display={"flex"} alignItems={"center"} justifyContent={"center"}>
+        <Footer />
       </Box>
     </>
   );

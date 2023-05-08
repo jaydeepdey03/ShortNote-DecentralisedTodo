@@ -3,7 +3,7 @@ import { FaGithub, FaInstagram, FaLinkedin, FaTwitter } from "react-icons/fa"
 
 const Footer = () => {
     return (
-        <HStack spacing={"6"} position='absolute' bottom='5'>
+        <HStack spacing={"6"} position='absolute' bottom='5' >
             <Link href='https://github.com/jaydeepdey03' target='_blank' >
                 <IconButton
                     bg="gray.100"

@@ -5,7 +5,7 @@ import useGlobalState from "../hook/useGlobalState";
 const Addtask = (props: any) => {
     const [statusInput, setStatusInput] = useState(true);
     const [content, setContent] = useState('');
-    const { addTask, errorState } = useGlobalState()
+    const { addTask, addNoteLoadingState } = useGlobalState()
 
     async function handleSubmit(e: FormEvent<HTMLFormElement>) {
         e.preventDefault()
@@ -13,15 +13,11 @@ const Addtask = (props: any) => {
         addTask(content)
     }
 
+    // console.log(loading, 'loading from add task');
+    
+
     return (
         <>
-            {errorState && (
-                <Alert status="error" variant="left-accent">
-                    <AlertIcon />
-                    <AlertTitle>Error</AlertTitle>
-                    <AlertDescription>{errorState}</AlertDescription>
-                </Alert>
-            )}
             <form onSubmit={handleSubmit} >
                 <HStack mt='4' mb='4'>
                     <Input
@@ -33,6 +29,8 @@ const Addtask = (props: any) => {
                         onChange={(e) => setContent(e.target.value)}
                     />
                     <Button
+                        loadingText="Adding"
+                        isLoading={addNoteLoadingState}
                         colorScheme='blue'
                         px='8'
                         pl='10'

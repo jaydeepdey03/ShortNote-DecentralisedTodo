@@ -12,15 +12,36 @@ import {
     useDisclosure,
     IconButton
 } from '@chakra-ui/react'
-import { useState, useRef } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import { FiTrash2, FiEdit } from 'react-icons/fi'
+import useGlobalState from '../hook/useGlobalState';
+import { ethers } from 'ethers';
+
+// interface for updatetask
+interface Note {
+    0: {
+        type: string;
+        hex: string;
+    };
+    1: string;
+    2: string;
+    3: boolean;
+}
 
 
 const UpdateTask = (props: any) => {
-    const { task, updateTask } = props;
+    const { id } = props;
     const { isOpen, onOpen, onClose } = useDisclosure()
     const [body, setBody] = useState('');
     const initialRef = useRef<HTMLInputElement>(null)
+
+    const { updateTask, updateNoteLoadingState } = useGlobalState()
+
+    const handleUpdate = () => {
+        updateTask(id, body, onClose)
+    }
+
+
     return (
         <>
             <IconButton
@@ -49,7 +70,7 @@ const UpdateTask = (props: any) => {
                     <ModalFooter>
                         <Button mr={3} onClick={onClose}>Cancel</Button>
                         {/* Put onclick */}
-                        <Button colorScheme='blue' >
+                        <Button isLoading={updateNoteLoadingState} loadingText="Updating..." colorScheme='blue' onClick={handleUpdate}>
                             Update Note
                         </Button>
                     </ModalFooter>

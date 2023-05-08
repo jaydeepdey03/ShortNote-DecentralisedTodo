@@ -13,10 +13,12 @@ import {
 } from '@chakra-ui/react'
 import { useState } from 'react';
 import { FiTrash2 } from 'react-icons/fi'
+import useGlobalState from '../hook/useGlobalState';
 
 
 function DeleteTask(props: any) {
-  const { task, deleteTask } = props;
+  const { id } = props;
+  const { deleteTask, deleteLoadingState } = useGlobalState()
   const { isOpen, onOpen, onClose } = useDisclosure()
 
   return (
@@ -30,17 +32,24 @@ function DeleteTask(props: any) {
 
       <Modal isCentered isOpen={isOpen} onClose={onClose}>
         <ModalOverlay />
-        <ModalContent w='90%'>
-          <ModalHeader>
-            Do you want to delete this task?
-          </ModalHeader>
+        <ModalContent>
+          <ModalHeader>Delete Item</ModalHeader>
           <ModalBody>
-            <Text>{task.body}</Text>
+            Are you sure you want to delete this item? This action cannot be
+            undone.
           </ModalBody>
+
           <ModalFooter>
-            <Button mr={3} onClick={onClose}>No</Button>
-            <Button colorScheme='blue' onClick={() => deleteTask(task.id, onClose)}>
-              Yes
+            <Button mr={3} onClick={onClose}>
+              Cancel
+            </Button>
+            <Button
+              isLoading={deleteLoadingState}
+              loadingText='Deleting...'
+              colorScheme="red"
+              onClick={() => deleteTask(id)}
+            >
+              Delete
             </Button>
           </ModalFooter>
         </ModalContent>

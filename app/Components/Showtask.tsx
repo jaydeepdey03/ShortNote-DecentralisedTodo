@@ -1,34 +1,50 @@
-import { Box, HStack, Image, StackDivider, Text, VStack } from "@chakra-ui/react";
+import { Box, HStack, Image, Spinner, StackDivider, Text, VStack } from "@chakra-ui/react";
 // import { tasks } from "../utils/data";
 import { DeleteTask } from "./DeleteTask";
 import UpdateTask from "./UpdateTask";
 import useGlobalState from "../hook/useGlobalState";
+import { BigNumber } from "ethers";
+import Markcompleted from "./Markcompleted";
 
 interface Note {
-    0: {
-        type: string;
-        hex: string;
-    };
+    0: BigNumber;
     1: string;
     2: string;
     3: boolean;
+    id: BigNumber;
+    username: string;
+    note: string;
+    completed: boolean;
 }
+
+
 
 
 const Showtask = (props: any) => {
     const { updateTask, deleteTask } = props;
 
-    const { tasks } = useGlobalState()
-    if (!tasks || !tasks.length) {
+    const { tasks, isFetched } = useGlobalState()
+
+    // console.log(isFetched,'loading from show task')
+    if(isFetched){
+        return (
+            <Spinner size={"lg"} />
+        )
+    }
+
+
+    if (!tasks || !tasks.length && isFetched === false) {
         return (
             <>
                 <Box maxW='80%' display={"flex"} justifyContent={"center"} alignItems={"center"} flexDirection={"column"}>
-                    <Image m='10' w='30%' height={"auto"} src={"/emptynotes.svg"} alt='Sua lista está vazia :(' />
+                    <Image m='10' w='30%' height={"auto"} src={"/emptynotes.svg"} alt='no note' />
                     <Text fontFamily={"poppins"}>No task found</Text>
                 </Box>
             </>
         );
     }
+
+
     return (
         <>
             <VStack
@@ -45,20 +61,21 @@ const Showtask = (props: any) => {
             >
 
                 {tasks.map((noteArray: Note) => (
-                    <HStack key={noteArray[0].hex}>
+                    <HStack key={noteArray.id.toNumber()}>
                         <Text
                             w='100%'
                             p='8px'
                             borderRadius='lg'
                             as={noteArray[3] ? 's' : 'b'}
-                            cursor='pointer'
                         >
                             {noteArray[2].replace(/\\/g, '').replace(/"/g, '')}
                         </Text>
-                        <DeleteTask task={noteArray} deleteTask={deleteTask} />
-                        <UpdateTask task={noteArray} updateTask={updateTask} />
+                        <Markcompleted id={noteArray.id.toNumber()}/>
+                        <DeleteTask task={noteArray} id={noteArray.id.toNumber()} />
+                        <UpdateTask task={noteArray} id={noteArray.id.toNumber()} />
                     </HStack>
                 ))}
+
 
             </VStack>
         </>
