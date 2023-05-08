@@ -6,14 +6,14 @@ import { useAddress, useContract, useContractWrite } from "@thirdweb-dev/react";
 
 const Markcompleted = (props: any) => {
 
-    const { id } = props;
+    const { id, completed } = props;
     // const task = tasks.find((task: any) => task.id === id);
     // const icon = task && task.completed ?  <CheckIcon /> : <CloseIcon />;
     const address = useAddress()
     const { contract } = useContract("0xEb45827032e94Cf09951fbA9FB239D73d5C664e2")
     const { mutateAsync: toggleComplete } = useContractWrite(contract, "toggleComplete")
     const [toggleCompleteLoadingState, setToggleCompleteLoadingState] = useState(false)
-    const [completed, setCompleted] = useState(false);
+
     const toast = useToast()
 
     async function toggleCompleteFunction(id: string) {
@@ -21,7 +21,6 @@ const Markcompleted = (props: any) => {
         setToggleCompleteLoadingState(true)
         try {
             const data = await toggleComplete({ args: [id, address] });
-            setCompleted(data)
             toast({
                 title: data === true ? 'Task Completed' : 'Task Uncompleted',
                 status: 'success',
@@ -41,7 +40,7 @@ const Markcompleted = (props: any) => {
             setToggleCompleteLoadingState(false)
         }
     }
-    console.log(completed)
+  
     return (
         <>
             <IconButton

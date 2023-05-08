@@ -70,7 +70,7 @@ const Showtask = (props: any) => {
                         >
                             {noteArray[2].replace(/\\/g, '').replace(/"/g, '')}
                         </Text>
-                        <Markcompleted id={noteArray.id.toNumber()}/>
+                        <Markcompleted id={noteArray.id.toNumber()} completed={noteArray.completed}/>
                         <DeleteTask task={noteArray} id={noteArray.id.toNumber()} />
                         <UpdateTask task={noteArray} id={noteArray.id.toNumber()} />
                     </HStack>
