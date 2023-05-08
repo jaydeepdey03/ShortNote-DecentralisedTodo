@@ -1,7 +1,5 @@
 import type { NextPage } from "next";
 import { Box, Button, Flex, HStack, Heading, Icon, IconButton, Image, Link, Text, Textarea, VStack, useColorMode } from "@chakra-ui/react";
-import { toast, ToastContainer } from 'react-toastify';
-import "react-toastify/dist/ReactToastify.css";
 import { FaGithub } from "react-icons/fa";
 import Footer from "../Components/Footer";
 import { ArrowForwardIcon } from "@chakra-ui/icons";
@@ -20,24 +18,12 @@ const Home: NextPage = () => {
 
   return (
     <>
-      <ToastContainer
-        position="bottom-center"
-        autoClose={5000}
-        hideProgressBar={false}
-        newestOnTop={false}
-        closeOnClick
-        rtl={false}
-        pauseOnFocusLoss
-        draggable
-        pauseOnHover
-        theme="light"
-      />
       <Box className="main-bg">
         {/* <ToggleTheme /> */}
         <VStack p="3" minH="full">
           {/* Navbar */}
           <Box height={"10vh"} display={"flex"} justifyContent={"space-between"} p="3" pl="6" width={"100vw"}>
-            <Text fontSize={"2xl"} fontWeight={"bold"}><span className="app-grad">Scribbly</span></Text>
+            <Link href="/"><Text fontSize={"2xl"} fontWeight={"bold"}><span className="app-grad">Scribbly</span></Text></Link>
             <HStack>
               <Link href="https://github.com/jaydeepdey03/scribbly" target="_blank">
                 <Box bg="black" display="inline-flex" alignItems="center" borderRadius="md" p={2} pr="3" pl="3">
