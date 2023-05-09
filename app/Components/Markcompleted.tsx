@@ -22,7 +22,7 @@ const Markcompleted = (props: any) => {
         try {
             const data = await toggleComplete({ args: [id, address] });
             toast({
-                title: data === true ? 'Task Completed' : 'Task Uncompleted',
+                title: data === true ? 'Task marked completed' : 'Task Marked incomplete',
                 status: 'success',
                 duration: 9000,
                 isClosable: true,
