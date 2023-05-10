@@ -43,7 +43,7 @@ const Markcompleted = (props: any) => {
 
     return (
         <>
-            <Tooltip label={completed ? "Mark as incomplete" : "Mark as complete"} aria-label="A tooltip">
+            <Tooltip label={completed ? "Mark as complete" : "Mark as incomplete"} aria-label="A tooltip">
                 <IconButton
                     icon={toggleCompleteLoadingState ? <Spinner size="sm" /> : !completed ? <CheckIcon /> : <CloseIcon />}
                     aria-label='check'
