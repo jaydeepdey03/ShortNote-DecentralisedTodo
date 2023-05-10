@@ -42,19 +42,9 @@ const Home: NextPage = () => {
             {address ?
 
               (isMismatched ?
-                <HStack>
-                  <Button className="my-transition" style={{ marginTop: '21px' }} leftIcon={<Image src={"/polygon.png"} width={5} height={5} alt="" />} colorScheme={"twitter"} onClick={() => switchChain(Mumbai.chainId)}>Switch to Mumbai</Button>
-                  <Button
-                    style={{ marginTop: '21px' }}
-                    colorScheme="yellow"
-                    leftIcon={<Image src={"/metamask.svg"} width={5} height={5} alt="" />}
-                    onClick={() =>
-                      window.open("https://metamask.io/download/", "_blank")
-                    }
-                  >
-                    Download Metamask
-                  </Button>
-                </HStack>
+
+                <Button className="my-transition" style={{ marginTop: '21px' }} leftIcon={<Image src={"/polygon.png"} width={5} height={5} alt="" />} colorScheme={"twitter"} onClick={() => switchChain(Mumbai.chainId)}>Switch to Mumbai</Button>
+
                 :
                 <Link className="my-transition" href="/home"><Button rightIcon={<ArrowForwardIcon />} _hover={{ bg: 'black' }} style={{ marginTop: '21px' }} bg="blackAlpha.700" color={"white"}>Get Started</Button></Link>
               )
@@ -62,12 +52,22 @@ const Home: NextPage = () => {
               :
               // <Button rightIcon={<ArrowForwardIcon />} _hover={{ bg: 'black' }} onClick={()=>connect({chainId: Mumbai.chainId})} style={{ marginTop: '21px' }} bg="blackAlpha.700" color={"white"}>Connect Wallet</Button>
 
-              <Box className="my-transition" style={{ marginTop: '21px' }}>
+              <HStack className="my-transition" style={{ marginTop: '21px' }}>
                 <ConnectWallet
                   theme={"light"}
                   btnTitle="Connect Wallet"
                 />
-              </Box>
+                <Button
+                  // style={{ marginTop: '21px' }}
+                  colorScheme="yellow"
+                  leftIcon={<Image src={"/metamask.svg"} width={5} height={5} alt="" />}
+                  onClick={() =>
+                    window.open("https://metamask.io/download/", "_blank")
+                  }
+                >
+                  Download Metamask
+                </Button>
+              </HStack>
             }
           </VStack>
 
