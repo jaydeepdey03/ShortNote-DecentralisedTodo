@@ -42,10 +42,8 @@ const Home: NextPage = () => {
             {address ?
 
               (isMismatched ?
-                <Button className="my-transition" style={{ marginTop: '21px' }} leftIcon={<Image src={"/polygon.png"} width={5} height={5} alt="" />} colorScheme={"twitter"} onClick={() => switchChain(Mumbai.chainId)}>Switch to Mumbai</Button>
-                :
                 <HStack>
-                  <Link className="my-transition" href="/home"><Button rightIcon={<ArrowForwardIcon />} _hover={{ bg: 'black' }} style={{ marginTop: '21px' }} bg="blackAlpha.700" color={"white"}>Get Started</Button></Link>
+                  <Button className="my-transition" style={{ marginTop: '21px' }} leftIcon={<Image src={"/polygon.png"} width={5} height={5} alt="" />} colorScheme={"twitter"} onClick={() => switchChain(Mumbai.chainId)}>Switch to Mumbai</Button>
                   <Button
                     style={{ marginTop: '21px' }}
                     colorScheme="yellow"
@@ -56,7 +54,10 @@ const Home: NextPage = () => {
                   >
                     Download Metamask
                   </Button>
-                </HStack>)
+                </HStack>
+                :
+                <Link className="my-transition" href="/home"><Button rightIcon={<ArrowForwardIcon />} _hover={{ bg: 'black' }} style={{ marginTop: '21px' }} bg="blackAlpha.700" color={"white"}>Get Started</Button></Link>
+              )
 
               :
               // <Button rightIcon={<ArrowForwardIcon />} _hover={{ bg: 'black' }} onClick={()=>connect({chainId: Mumbai.chainId})} style={{ marginTop: '21px' }} bg="blackAlpha.700" color={"white"}>Connect Wallet</Button>
