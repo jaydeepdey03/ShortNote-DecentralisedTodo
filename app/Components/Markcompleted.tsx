@@ -21,13 +21,13 @@ const Markcompleted = (props: any) => {
         setToggleCompleteLoadingState(true)
         try {
             const data = await toggleComplete({ args: [id, address] });
+            setToggleCompleteLoadingState(false)
             toast({
-                title: data === true ? 'Task marked completed' : 'Task Marked incomplete',
+                title: completed === true ? 'Task marked completed' : 'Task Marked incomplete',
                 status: 'success',
                 duration: 9000,
                 isClosable: true,
             })
-            setToggleCompleteLoadingState(false)
         } catch (err: any) {
             console.log(err)
             toast({
