@@ -10,6 +10,11 @@ const theme = extendTheme({
     fonts: {
         poppins: `'Poppins', 'sans-serif'`,
     },
+
+    colorModeTransition: {
+        duration: 0.5,
+        easing: 'linear'
+    }
 })
 
 export default theme
